@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640" role="img" aria-label="claude-fork-join — a fork/join orchestrator skill for Claude Code">
+  <title>claude-fork-join — a fork/join orchestrator skill for Claude Code</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b2430"/>
+      <stop offset="1" stop-color="#0d1117"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="640" fill="url(#bg)"/>
+
+  <!-- graph mark, inside the 80px safe border -->
+  <g transform="translate(72 158) scale(0.66)">
+    <g stroke="#2b3947" stroke-width="4" stroke-dasharray="12 14">
+      <line x1="186" y1="60" x2="186" y2="452"/>
+      <line x1="326" y1="60" x2="326" y2="452"/>
+    </g>
+    <g fill="none" stroke="#e07a4e" stroke-width="19" stroke-linecap="round">
+      <path d="M116 256 C 152 256, 150 136, 186 136"/>
+      <path d="M116 256 L 186 256"/>
+      <path d="M116 256 C 152 256, 150 376, 186 376"/>
+      <path d="M326 136 C 362 136, 360 256, 396 256"/>
+      <path d="M326 256 L 396 256"/>
+      <path d="M326 376 C 362 376, 360 256, 396 256"/>
+    </g>
+    <g fill="none" stroke="#f2f5f8" stroke-width="19" stroke-linecap="round">
+      <line x1="186" y1="136" x2="326" y2="136"/>
+      <line x1="186" y1="256" x2="326" y2="256"/>
+      <line x1="186" y1="376" x2="326" y2="376"/>
+    </g>
+    <g fill="#111820" stroke="#f2f5f8" stroke-width="17">
+      <circle cx="186" cy="136" r="28"/>
+      <circle cx="186" cy="256" r="28"/>
+      <circle cx="186" cy="376" r="28"/>
+      <circle cx="326" cy="136" r="28"/>
+      <circle cx="326" cy="256" r="28"/>
+      <circle cx="326" cy="376" r="28"/>
+    </g>
+    <g fill="#e07a4e">
+      <circle cx="106" cy="256" r="36"/>
+      <circle cx="406" cy="256" r="36"/>
+    </g>
+  </g>
+
+  <!-- wordmark -->
+  <g font-family="DejaVu Sans, Noto Sans, Liberation Sans, sans-serif">
+    <text x="452" y="268" fill="#f2f5f8" font-size="74" font-weight="bold">claude-fork-join</text>
+    <text x="456" y="332" fill="#e07a4e" font-size="28" font-weight="bold">FORK / JOIN ORCHESTRATOR</text>
+    <text x="456" y="400" fill="#9fb0c0" font-size="29">Split one Claude Code session into parallel-safe</text>
+    <text x="456" y="440" fill="#9fb0c0" font-size="29">waves of workers, then join on their state reports.</text>
+    <text x="456" y="510" fill="#6d8092" font-size="26" font-family="DejaVu Sans Mono, monospace">/forkjoin start · wave · join · status</text>
+  </g>
+</svg>

@@ -15,7 +15,8 @@ are three text files that get copied into a Claude Code config directory.
 | `skills/forkjoin/orchestrator.py` | Deterministic half — `init` / `plan` / `scan`. Run scaffolding, wave layering from the dependency graph, write-target collision detection, report gating. Stdlib only, Python 3, no deps. |
 | `commands/forkjoin.md` | `/forkjoin` slash command; routes into the skill via the Skill tool. |
 | `README.md` | User-facing install + usage. |
-| `assets/avatar.svg` | Avatar source. Re-render the PNG with `convert assets/avatar.svg -depth 8 -define png:color-type=6 assets/avatar.png` after editing; never hand-edit the PNG. |
+| `assets/avatar.svg` | Avatar source, 512×512. |
+| `assets/social-card.svg` | GitHub social-preview source, 1280×640. All content stays inside the 80px safe border GitHub's template marks; verify after editing. |
 
 Install target: `~/.claude/skills/forkjoin/` and `~/.claude/commands/forkjoin.md`
 (or wherever `CLAUDE_CONFIG_DIR` points).
@@ -60,6 +61,18 @@ Shared constants that must stay in sync between `SKILL.md` prose and `orchestrat
 
 `tmp/` is gitignored. `<run-id>` is minted only by `orchestrator.py init` — never by hand;
 two runs sharing an id silently merge their reports.
+
+## Regenerating the images
+
+The PNGs in `assets/` are generated — never hand-edit them. After changing an SVG:
+
+```bash
+convert -depth 8 -define png:color-type=6 assets/avatar.svg      assets/avatar.png
+convert -depth 8 -define png:color-type=6 assets/social-card.svg assets/social-card.png
+```
+
+librsvg mis-renders `letter-spacing` (glyphs pile up or overflow) — do not reintroduce it.
+Check the social card's content bounding box lands inside `(80, 80)–(1200, 560)`.
 
 ## Verifying a change
 
