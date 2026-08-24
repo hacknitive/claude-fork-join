@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""hack-master worker — run scaffolding, wave layering, and report gating.
+"""forkjoin engine — run scaffolding, wave layering, and report gating.
 
-Deterministic half of the master/slave orchestration skill. The model decomposes
+Deterministic half of the fork/join orchestration skill. The model decomposes
 the goal and writes the manifest; this script owns everything that must not be
 guessed: wave layering from the dependency graph, write-target collision
 detection, and the hard gate that decides whether the next wave may be emitted.
@@ -61,8 +61,8 @@ def cmd_init(args: argparse.Namespace) -> int:
         encoding="utf-8",
     )
 
-    # The master session is long-running; its context is the thing most likely to
-    # degrade. RUN.md is the durable half — what the master would have to re-derive
+    # The orchestrator session is long-running; its context is the thing most likely to
+    # degrade. RUN.md is the durable half — what the orchestrator would have to re-derive
     # if its context were lost. The unit table lives in units.json and is NOT
     # duplicated here; two copies drift.
     run_log = run_dir / "RUN.md"
@@ -82,7 +82,7 @@ def cmd_init(args: argparse.Namespace) -> int:
                 "|---|---|---|",
                 "",
                 "## Findings by wave",
-                "<folded in at each join — what the reports taught that the master",
+                "<folded in at each join — what the reports taught that the orchestrator",
                 "could not have predicted, and what it changed>",
                 "",
                 "## Open questions",
@@ -176,7 +176,7 @@ def wave_labels(by_id: dict) -> dict:
 
     Derived from the manifest, never minted per emission, so the same unit carries
     the same label every time it is printed — the operator's place-keeper across a
-    long paste session and the leading token of each slave session's tab title.
+    long paste session and the leading token of each worker session's tab title.
     """
     waves = defaultdict(list)
     for uid, unit in by_id.items():
@@ -342,7 +342,7 @@ def find_report(reports_dir: Path, uid: str, label: str) -> list:
 def read_report(path: Path) -> dict:
     """Parse the report frontmatter. Absent terminal status is not success.
 
-    Slaves write the report incrementally — `status: in-progress` from the moment
+    Workers write the report incrementally — `status: in-progress` from the moment
     work starts, updated as it goes — so a session that dies still leaves the story
     behind. That makes a completed file indistinguishable from a truncated one on
     frontmatter alone: a crash after the header leaves `status: done` sitting above
@@ -462,7 +462,7 @@ def cmd_scan(args: argparse.Namespace) -> int:
         print("\nGATE: BLOCKED — a unit has more than one report file:")
         for uid in ambiguous:
             print(f"  {uid}: {states[uid]['detail']}")
-        print("Delete the stale one — the master cannot tell which is current.")
+        print("Delete the stale one — the orchestrator cannot tell which is current.")
         return 1
 
     print(f"\nGATE: OPEN — emit wave {next_wave} ({len(incomplete)} unit(s))")
@@ -476,11 +476,11 @@ def cmd_scan(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(prog="master.py", description=__doc__)
+    parser = argparse.ArgumentParser(prog="orchestrator.py", description=__doc__)
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     p_init = sub.add_parser("init", help="create a run directory")
-    p_init.add_argument("root", help="report root, e.g. <cwd>/tmp/master")
+    p_init.add_argument("root", help="report root, e.g. <cwd>/tmp/runs")
     p_init.add_argument("goal_slug", help="kebab-case slug for the run")
     p_init.set_defaults(func=cmd_init)
 
