@@ -88,7 +88,7 @@ Report filenames are label-first so the directory listing sorts by wave, then by
 | `skills/forkjoin/SKILL.md` | Decomposition rules, prompt template, report schema, mode persistence. |
 | `skills/forkjoin/orchestrator.py` | Deterministic half — run scaffolding, wave layering, write-target collision detection, report gating. |
 | `commands/forkjoin.md` | The `/forkjoin` slash command that routes into the skill. |
-| `assets/` | Project avatar — `avatar.svg` is the source, `avatar.png` the 512×512 render. |
+| `assets/` | Project imagery — `avatar.svg` / `avatar.png` (512×512) and `social-card.svg` / `social-card.png` (1280×640, GitHub social preview). SVGs are the sources. |
 
 The model owns judgment (what the units are, what each session needs to know). The script
 owns what must not be guessed (wave order, collisions, whether the gate opens).
