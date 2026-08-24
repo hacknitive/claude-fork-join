@@ -1,4 +1,12 @@
-# claude-fork-join
+<p align="center">
+  <img src="assets/avatar.png" alt="claude-fork-join — a fork/join orchestrator skill for Claude Code" width="160">
+</p>
+
+<h1 align="center">claude-fork-join</h1>
+
+<p align="center">
+  Fork one Claude Code session into parallel-safe waves of worker sessions, then join on their state reports.
+</p>
 
 A Claude Code skill that turns one session into a **fork/join orchestrator**: it holds the
 context, decomposes a large job into units of work, layers those units into waves that are
@@ -80,6 +88,7 @@ Report filenames are label-first so the directory listing sorts by wave, then by
 | `skills/forkjoin/SKILL.md` | Decomposition rules, prompt template, report schema, mode persistence. |
 | `skills/forkjoin/orchestrator.py` | Deterministic half — run scaffolding, wave layering, write-target collision detection, report gating. |
 | `commands/forkjoin.md` | The `/forkjoin` slash command that routes into the skill. |
+| `assets/` | Project avatar — `avatar.svg` is the source, `avatar.png` the 512×512 render. |
 
 The model owns judgment (what the units are, what each session needs to know). The script
 owns what must not be guessed (wave order, collisions, whether the gate opens).
