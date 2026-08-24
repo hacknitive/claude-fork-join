@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-fork-join",
+  "description": "Single-plugin marketplace hosting forkjoin, a fork/join orchestrator skill for Claude Code.",
+  "owner": {
+    "name": "hacknitive",
+    "url": "https://github.com/hacknitive"
+  },
+  "plugins": [
+    {
+      "name": "forkjoin",
+      "description": "Fork one Claude Code session into parallel-safe waves of worker sessions, then join on their state reports.",
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://github.com/hacknitive/claude-fork-join",
+      "keywords": ["orchestration", "parallel", "fork-join", "workflow"]
+    }
+  ]
+}

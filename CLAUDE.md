@@ -15,6 +15,8 @@ are three text files that get copied into a Claude Code config directory.
 | `skills/forkjoin/orchestrator.py` | Deterministic half — `init` / `plan` / `scan`. Run scaffolding, wave layering from the dependency graph, write-target collision detection, report gating. Stdlib only, Python 3, no deps. |
 | `commands/forkjoin.md` | `/forkjoin` slash command; routes into the skill via the Skill tool. |
 | `README.md` | User-facing install + usage. |
+| `.claude-plugin/plugin.json` | Plugin manifest — name, version, author. Required for `/plugin install`. |
+| `.claude-plugin/marketplace.json` | Self-hosted marketplace manifest, so `/plugin marketplace add hacknitive/claude-fork-join` resolves against this repo. |
 | `assets/avatar.svg` | Avatar source, 512×512. |
 | `assets/social-card.svg` | GitHub social-preview source, 1280×640. All content stays inside the 80px safe border GitHub's template marks; verify after editing. |
 
@@ -45,6 +47,11 @@ Install target: `~/.claude/skills/forkjoin/` and `~/.claude/commands/forkjoin.md
 restate the sub-op contract, the slot table, and the hard rules. A change to argument
 grammar, sub-op set, or run layout must land in **all** of them plus `README.md` in the same
 change. Drift between them is the main defect class in this repo.
+
+The two manifests join that set for a narrower class of change: the plugin `name`, the
+`version`, and the description text must agree across `plugin.json`, the `plugins[]` entry
+in `marketplace.json`, and `README.md`. A release bumps `version` in `plugin.json` and tags
+the commit; the tag and the manifest version must match.
 
 Shared constants that must stay in sync between `SKILL.md` prose and `orchestrator.py`:
 `TERMINAL_STATUSES = done|blocked|failed`, `RUNNING_STATUS = in-progress`,

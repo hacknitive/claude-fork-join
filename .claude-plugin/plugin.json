@@ -1,0 +1,12 @@
+{
+  "name": "forkjoin",
+  "version": "0.1.0",
+  "description": "Fork one Claude Code session into parallel-safe waves of worker sessions, then join on their state reports. Emits copy-paste prompts; never spawns agents.",
+  "author": {
+    "name": "hacknitive",
+    "url": "https://github.com/hacknitive"
+  },
+  "homepage": "https://github.com/hacknitive/claude-fork-join",
+  "license": "MIT",
+  "keywords": ["orchestration", "parallel", "fork-join", "workflow", "planning"]
+}

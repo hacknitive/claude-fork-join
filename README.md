@@ -30,6 +30,21 @@ Not affiliated with or endorsed by Anthropic.
 
 ## Install
 
+### Plugin (recommended)
+
+Inside any Claude Code session:
+
+```
+/plugin marketplace add hacknitive/claude-fork-join
+/plugin install forkjoin
+```
+
+That points Claude Code at this repository directly — nothing is submitted to or hosted by
+anyone else. `/plugin update forkjoin` picks up later releases; `/plugin uninstall forkjoin`
+removes it.
+
+### Manual
+
 Copy into your Claude Code config directory (`~/.claude`, or whatever `CLAUDE_CONFIG_DIR`
 points at):
 
@@ -41,6 +56,20 @@ cp    commands/forkjoin.md ~/.claude/commands/
 ```
 
 Restart Claude Code. `/forkjoin` is then available in every session.
+
+### Requirements
+
+Python 3.8+ on `PATH` — the deterministic half of the skill is a stdlib-only Python script
+with no third-party dependencies.
+
+| Platform | Status |
+|---|---|
+| Linux, WSL | works out of the box (`python3` ships with Ubuntu and Debian) |
+| macOS | works once the Xcode Command Line Tools Python shim has been run at least once |
+| Windows (Git Bash) | install Python from python.org first; the skill probes `python3`, `py -3`, then `python` |
+
+Run artifacts are written under `tmp/runs/` in **your project's** working directory, never
+inside the plugin directory.
 
 ## Usage
 
