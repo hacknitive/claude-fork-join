@@ -68,6 +68,34 @@ does is built on that one fact.
 The model owns judgment (what the units are, what each worker needs to know). The script
 owns everything that must not be guessed (wave order, collisions, whether the gate opens).
 
+### Running the script
+
+`<skill-dir>` is the directory holding this `SKILL.md`. When installed as a plugin it is
+`${CLAUDE_PLUGIN_ROOT}/skills/forkjoin`; when copied by hand it is
+`~/.claude/skills/forkjoin` (or the same path under `CLAUDE_CONFIG_DIR`). Resolve it once
+per session and reuse it — never guess a relative path from the operator's working
+directory.
+
+`<py>` is the first of these that runs successfully:
+
+| Order | Command | Where it applies |
+|---|---|---|
+| 1 | `python3` | Linux, macOS, WSL, Git Bash with Python on PATH |
+| 2 | `py -3` | Windows, python.org installer's launcher |
+| 3 | `python` | Windows, and Linux with `python-is-python3` |
+
+Probe with `--version` before the first real call. On Windows, a bare `python3` may hit the
+Microsoft Store alias stub, which opens a Store page and returns no usable output — treat
+any non-zero exit or empty version string as "not this one" and fall through to the next
+row. If all three fail, stop and print exactly:
+
+```
+ERROR: no Python 3 interpreter found. forkjoin needs Python 3.8+ on PATH.
+```
+
+Do not attempt to install Python, and do not fall back to a hand-rolled substitute for the
+script — the layering and gate decisions are the script's alone.
+
 ## Argument rules
 
 1. **Positional arguments only.** Slots separated by a space, in the order given. No `::`
@@ -358,11 +386,11 @@ units whose prompts are also thin.
    independently-runnable units per wave as the work allows, and keep the wave count as
    low as the real dependencies permit. See [Decomposing for width](#decomposing-for-width)
    — follow it, it is not optional guidance.
-3. Run `python3 <skill-dir>/orchestrator.py init <cwd>/tmp/runs <goal-slug>`; capture the
+3. Run `<py> <skill-dir>/orchestrator.py init <cwd>/tmp/runs <goal-slug>`; capture the
    printed `run_id`, `run_dir`, `manifest`, `run_log`.
 4. Write `units.json` per the manifest schema. Every unit carries `write_targets` and
    `depends_on`, both explicit, empty list when genuinely empty.
-5. Run `python3 <skill-dir>/orchestrator.py plan <manifest>`. On collision or cycle, fix the
+5. Run `<py> <skill-dir>/orchestrator.py plan <manifest>`. On collision or cycle, fix the
    manifest and re-run — never proceed past a non-zero exit.
 6. Fill `RUN.md` — Goal, Constraints and non-goals, and the first Decisions rows covering
    how the work was split and why. Do this before printing anything, while the reasoning
@@ -395,7 +423,7 @@ Emit the copy-paste worker prompts for the next open wave.
 
 ### What it does
 
-1. Run `python3 <skill-dir>/orchestrator.py scan <run-dir>`. Emit only if the gate line
+1. Run `<py> <skill-dir>/orchestrator.py scan <run-dir>`. Emit only if the gate line
    reads `GATE: OPEN`.
 2. For each unit in that wave, print a heading carrying the label, then one fenced block,
    self-contained, in this shape:
@@ -537,7 +565,7 @@ Read the reports and report the truth about them.
 
 ### What it does
 
-1. Read `RUN.md`, then run `python3 <skill-dir>/orchestrator.py scan <run-dir>` and print
+1. Read `RUN.md`, then run `<py> <skill-dir>/orchestrator.py scan <run-dir>` and print
    its table.
 2. Read every report whose status is `done` and fold its Findings and Next-step hint into
    the orchestrator's own context — this is the point of the whole pattern. Then append a
